@@ -6,14 +6,15 @@ namespace AirportTickets.Flight
     {
         public enum ClassType
         {
-            EconEconomy,
+            Economy,
             Business,
             FirstClass,
         }
 
+        private Dictionary<ClassType, decimal> _prices = new();
+
         public string Departure { get; set; }
         public string Destination { get; set; }
-        public decimal Price { get; set; }
         public DateTime DepartureDate { get; set; }
         public string ArrivalAirport { get; set; }
         public string DepartureAirport { get; set; }
@@ -24,9 +25,16 @@ namespace AirportTickets.Flight
 
         }
 
+        public void AddPrice(ClassType classType, decimal price)
+        {
+            _prices.Add(classType, price);
+        }
+
         public override string ToString() => $"From : {Departure} -> To : {Destination}.";
 
-        public void Log() => Console.WriteLine($"{DepartureAirport} -> {ArrivalAirport} At : {DepartureDate}");
+        public void Log() => Console.WriteLine(
+            $"{Departure}:{DepartureAirport} -> {Destination}:{ArrivalAirport} At : {DepartureDate} \n" +
+            $"{ClassType.Economy} = {_prices[ClassType.Economy]}$, {ClassType.Business} = {_prices[ClassType.Business]}$" +
+            $", {ClassType.FirstClass} = {_prices[ClassType.FirstClass]}$ ");
     }
 }
-
