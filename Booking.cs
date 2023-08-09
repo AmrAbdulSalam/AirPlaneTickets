@@ -1,21 +1,16 @@
 ﻿using System;
 namespace AirportTickets.Booking
 {
-    public class BookingDTO
+    public static class BookingDTO
     {
-        List<ReservationDTO> _booked = new();
+        private static List<ReservationDTO> _booked = new();
 
-        public BookingDTO()
-        {
-
-        }
-
-        public void AddBooking(ReservationDTO reservation)
+        public static void AddBooking(ReservationDTO reservation)
         {
             _booked.Add(reservation);
         }
 
-        public List<ReservationDTO> RetreiveBookings()
+        public static List<ReservationDTO> RetreiveBookings()
         {
             return _booked;
         }
