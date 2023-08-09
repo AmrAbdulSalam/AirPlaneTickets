@@ -2,6 +2,8 @@
 using AirportTickets.Flight;
 using AirportTickets.Repository;
 using AirportTickets.Passenger;
+using AirportTickets.Booking;
+using AirportTickets;
 
 namespace AirPlanceTickets
 {
@@ -16,6 +18,8 @@ namespace AirPlanceTickets
             List<FlightDTO> filterdList = null;
             var newUser = true;
             var passenger = new PassengerDTO();
+            var manager = new ManagerDTO();
+            List<ReservationDTO> mangerList = null;
             while (true)
             {
                 Console.WriteLine
@@ -66,10 +70,7 @@ namespace AirPlanceTickets
                     switch (userInput)
                     {
                         case "1":
-                            foreach (var flight in flightInfo)
-                            {
-                                flight.Log();
-                            }
+                            filterdList = flightInfo;
                             break;
                         case "2":
                             var price = decimal.Parse(Console.ReadLine());
@@ -164,17 +165,20 @@ namespace AirPlanceTickets
 
                             break;
                     }
-                    foreach (var flight in filterdList)
+                    if (filterdList.Count() > 0)
                     {
-                        flight.Log();
+                        foreach (var flight in filterdList)
+                        {
+                            flight.Log();
+                        }
+                        filterdList.Clear();
                     }
-                    filterdList.Clear();
                     Console.WriteLine("Book a flight y/n?");
                     var question = Console.ReadLine();
                     if (question == "y")
                     {
                         Console.WriteLine("To book a flight please enter the id of the flight");
-                        var id = Console.ReadLine();
+                        var flightId = Console.ReadLine();
                         Console.WriteLine($"Which class\n" +
                                    $"1-Econmey \n" +
                                    $"2-Business \n" +
@@ -193,9 +197,10 @@ namespace AirPlanceTickets
                         {
                             bookType = FlightDTO.ClassType.FirstClass;
                         }
-                        var bookedFlight = flightRepository.SearchForFlight(id);
+                        var bookedFlight = flightRepository.SearchForFlight(flightId);
                         bookedFlight.ServiceClass = bookType;
                         passenger.AddFlight(bookedFlight);
+                        BookingDTO.AddBooking(new ReservationDTO(passenger.Name, bookedFlight));
                         Console.WriteLine($"You have {passenger.ShowFlights().Count()} flights");
                         foreach (var flight in passenger.ShowFlights())
                         {
@@ -207,7 +212,87 @@ namespace AirPlanceTickets
                 }
                 else if (userType == "3")
                 {
-                    Console.WriteLine("Manager");
+
+                    Console.WriteLine("1-Filter by Flight\n" +
+                        "2-Filter by Price\n" +
+                        "3-Filter by Departure Countrt\n" +
+                        "4-Filter by Destenation Country\n" +
+                        "5-Filter by Departure Date\n" +
+                        "6-Filter by Deaprture Airport\n" +
+                        "7-Filter by Arrival Airport\n" +
+                        "8-Filter by Passenger name\n" +
+                        "9-Filter by Class Type\n");
+                    var choice = Console.ReadLine();
+                    switch (choice)
+                    {
+                        case "1":
+                            Console.WriteLine("Flight id :");
+                            var id = Console.ReadLine();
+                            FlightDTO flight = flightRepository.SearchForFlight(id);
+                            mangerList = manager.FilterByFlight(flight);
+                            break;
+                        case "2":
+                            Console.WriteLine("Price :");
+                            var price = Decimal.Parse(Console.ReadLine());
+                            mangerList = manager.FilterByPrice(price);
+                            break;
+                        case "3":
+                            Console.WriteLine("Departure Country");
+                            var departureCountry = Console.ReadLine();
+                            mangerList = manager.FilterByDepartureCountry(departureCountry);
+                            break;
+                        case "4":
+                            Console.WriteLine("Destenation Country");
+                            var destinationCountry = Console.ReadLine();
+                            mangerList = manager.FilterByDestinationCountry(destinationCountry);
+                            break;
+                        case "5":
+                            Console.WriteLine("Departure Date");
+                            var departureDate = DateTime.Parse(Console.ReadLine());
+                            mangerList = manager.FilterByDepartureDate(departureDate);
+                            break;
+                        case "6":
+                            Console.WriteLine("Departure Airport");
+                            var departureAirport = Console.ReadLine();
+                            mangerList = manager.FilterByDepartureAirport(departureAirport);
+                            break;
+                        case "7":
+                            Console.WriteLine("Arrival Airport");
+                            var arrivalAirport = Console.ReadLine();
+                            mangerList = manager.FilterByArrivalAirport(arrivalAirport);
+                            break;
+                        case "8":
+                            Console.WriteLine("Passenger Name");
+                            var passengerName = Console.ReadLine();
+                            mangerList = manager.FilterByName(passengerName);
+                            break;
+                        case "9":
+                            Console.WriteLine($"Which class\n" +
+                                   $"1-Econmey \n" +
+                                   $"2-Business \n" +
+                                   $"3-FirstClass \n");
+                            var bookChoice = Console.ReadLine();
+                            var bookType = FlightDTO.ClassType.Economy;
+                            if (bookChoice == "1")
+                            {
+                                bookType = FlightDTO.ClassType.Economy;
+                            }
+                            else if (bookChoice == "2")
+                            {
+                                bookType = FlightDTO.ClassType.Business;
+                            }
+                            else if (bookChoice == "3")
+                            {
+                                bookType = FlightDTO.ClassType.FirstClass;
+                            }
+                            mangerList = manager.FilterByClassType(bookType);
+                            break;
+                    }
+
+                    foreach (var item in mangerList)
+                    {
+                        Console.WriteLine($"Name : {item.Name}\n{item.Flight.ToString()}");
+                    }
                 }
                 else if (userType == "4")
                 {
