@@ -31,6 +31,18 @@ namespace AirportTickets.Flight
             _prices.Add(classType, price);
         }
 
+        public string FindClassType(ClassType classType)
+        {
+            foreach (var item in _prices)
+            {
+                if(item.Key == classType && item.Value != null)
+                {
+                    return ID;
+                }
+            }
+            return null;
+        }
+
         public string GetPrices(decimal price, ClassType type) => _prices[type] == price ? ID : null;
 
         public override string ToString() => $"From : {Departure} -> To : {Destination}.";
