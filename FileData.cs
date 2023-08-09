@@ -19,13 +19,13 @@ namespace AirportTickets.FileInfo
                     var values = line.Split(',');
                     flight = new FlightDTO()
                     {
+                        ID = values[0],
                         Departure = values[1],
                         DepartureAirport = values[2],
                         Destination = values[3],
                         ArrivalAirport = values[4],
                         DepartureDate = DateTime.Parse(values[5]),
                     };
-                    flight.SetId(values[0]);
                     flight.AddPrice(ClassType.Economy, Decimal.Parse(values[6]));
                     flight.AddPrice(ClassType.Business, Decimal.Parse(values[7]));
                     flight.AddPrice(ClassType.FirstClass, Decimal.Parse(values[8]));
