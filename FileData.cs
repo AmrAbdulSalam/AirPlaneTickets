@@ -25,6 +25,7 @@ namespace AirportTickets.FileInfo
                         ArrivalAirport = values[4],
                         DepartureDate = DateTime.Parse(values[5]),
                     };
+                    flight.SetId(values[0]);
                     flight.AddPrice(ClassType.Economy, Decimal.Parse(values[6]));
                     flight.AddPrice(ClassType.Business, Decimal.Parse(values[7]));
                     flight.AddPrice(ClassType.FirstClass, Decimal.Parse(values[8]));

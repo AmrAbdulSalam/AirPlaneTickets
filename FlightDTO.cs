@@ -12,6 +12,7 @@ namespace AirportTickets.Flight
         }
 
         private Dictionary<ClassType, decimal> _prices = new();
+        private string _id;
 
         public string Departure { get; set; }
         public string Destination { get; set; }
@@ -30,10 +31,15 @@ namespace AirportTickets.Flight
             _prices.Add(classType, price);
         }
 
+        public void SetId(string id)
+        {
+            _id = id;
+        }
+
         public override string ToString() => $"From : {Departure} -> To : {Destination}.";
 
         public void Log() => Console.WriteLine(
-            $"{Departure}:{DepartureAirport} -> {Destination}:{ArrivalAirport} At : {DepartureDate} \n" +
+            $"FlightID : {_id } {Departure}:{DepartureAirport} -> {Destination}:{ArrivalAirport} At : {DepartureDate} \n" +
             $"{ClassType.Economy} = {_prices[ClassType.Economy]}$, {ClassType.Business} = {_prices[ClassType.Business]}$" +
             $", {ClassType.FirstClass} = {_prices[ClassType.FirstClass]}$ ");
     }
