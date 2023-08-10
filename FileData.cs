@@ -1,5 +1,7 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using AirportTickets.Flight;
+using AirportTickets.Validation;
 using static AirportTickets.Flight.FlightDTO;
 
 namespace AirportTickets.FileInfo
@@ -13,6 +15,7 @@ namespace AirportTickets.FileInfo
                 FlightDTO flight;
                 var list = new List<FlightDTO>();
                 StreamReader reader = new StreamReader(File.OpenRead(filePath));
+                int lineNo = 0;
                 while (!reader.EndOfStream)
                 {
                     var line = reader.ReadLine();
@@ -29,7 +32,14 @@ namespace AirportTickets.FileInfo
                     flight.AddPrice(ClassType.Economy, Decimal.Parse(values[6]));
                     flight.AddPrice(ClassType.Business, Decimal.Parse(values[7]));
                     flight.AddPrice(ClassType.FirstClass, Decimal.Parse(values[8]));
-                    list.Add(flight);
+
+                    //Check for validation
+
+                    bool valid = DataValidation.ValidData(flight, ref lineNo);
+                    if (valid)
+                    {
+                        list.Add(flight);
+                    }
                 }
                 return list;
             }
