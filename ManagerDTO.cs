@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Reflection;
+using System.Text;
 using AirportTickets.Booking;
 using AirportTickets.Flight;
 using static AirportTickets.Flight.FlightDTO;
@@ -20,6 +22,22 @@ namespace AirportTickets
                 BookingDTO.RetreiveBookings()
                 .Where(item => item.Flight == flight)
                 .ToList();
+        }
+
+        public string PropertyAttributes()
+        {
+            List<string> list = new();
+            Type flightType = typeof(FlightDTO);
+            var sb = new StringBuilder();
+            foreach (var property in flightType.GetProperties())
+            {
+                sb.Append($"{property} : \n");
+                foreach (var attribute in property.GetCustomAttributes())
+                {
+                    sb.Append($"    *{attribute.GetType().Name}\n");
+                }
+            }
+            return sb.ToString();
         }
 
         public List<ReservationDTO> FilterByPrice(decimal price)

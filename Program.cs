@@ -221,7 +221,8 @@ namespace AirPlanceTickets
                         "6-Filter by Deaprture Airport\n" +
                         "7-Filter by Arrival Airport\n" +
                         "8-Filter by Passenger name\n" +
-                        "9-Filter by Class Type\n");
+                        "9-Filter by Class Type\n" +
+                        "10-Validation Attributes");
                     var choice = Console.ReadLine();
                     switch (choice)
                     {
@@ -287,11 +288,16 @@ namespace AirPlanceTickets
                             }
                             mangerList = manager.FilterByClassType(bookType);
                             break;
+                        case "10":
+                            Console.WriteLine(manager.PropertyAttributes());
+                            break;
                     }
-
-                    foreach (var item in mangerList)
+                    if (mangerList != null)
                     {
-                        Console.WriteLine($"Name : {item.Name}\n{item.Flight.ToString()}");
+                        foreach (var item in mangerList)
+                        {
+                            Console.WriteLine($"Name : {item.Name}\n{item.Flight.ToString()}");
+                        }
                     }
                 }
                 else if (userType == "4")
