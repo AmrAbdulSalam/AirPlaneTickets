@@ -26,7 +26,7 @@ namespace AirportTickets.Passenger
             return _flights.Single(flight => flight.ID == id);
         }
 
-        public void ModifyFlight(FlightDTO flight , FlightDTO.ClassType classType)
+        public void ModifyFlight(FlightDTO flight, FlightDTO.ClassType classType)
         {
             flight.ServiceClass = classType;
         }
