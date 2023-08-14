@@ -4,17 +4,21 @@ using AirportTickets.Repository;
 using AirportTickets.Passenger;
 using AirportTickets.Booking;
 using AirportTickets;
+using AirportTickets.FlightValidation;
 
 namespace AirPlanceTickets
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
+            Console.WriteLine(FlightValidations.GetFlightValidations());
+
             Console.WriteLine("Enter the file path that have a .CSV file : ");
             string? path = Console.ReadLine();
             var flightRepository = new FlightRepository(path);
-            var flightInfo = flightRepository.FlightsInfo();
+            await flightRepository.ReadAsyncFile();
+            var flightInfo = flightRepository.GetAllFlightsInfo();
             List<FlightDTO> filterdList = null;
             var newUser = true;
             var passenger = new PassengerDTO();
@@ -200,7 +204,7 @@ namespace AirPlanceTickets
                         var bookedFlight = flightRepository.SearchForFlight(flightId);
                         bookedFlight.ServiceClass = bookType;
                         passenger.AddFlight(bookedFlight);
-                        BookingDTO.AddBooking(new ReservationDTO(passenger.Name, bookedFlight));
+                        BookingDTO.AddBooking(new ReservationDTO(passenger, bookedFlight, flightId));
                         Console.WriteLine($"You have {passenger.ShowFlights().Count()} flights");
                         foreach (var flight in passenger.ShowFlights())
                         {
@@ -289,14 +293,14 @@ namespace AirPlanceTickets
                             mangerList = manager.FilterByClassType(bookType);
                             break;
                         case "10":
-                            Console.WriteLine(manager.PropertyAttributes());
+                            Console.WriteLine(FlightValidations.GetFlightValidations());
                             break;
                     }
                     if (mangerList != null)
                     {
                         foreach (var item in mangerList)
                         {
-                            Console.WriteLine($"Name : {item.Name}\n{item.Flight.ToString()}");
+                            Console.WriteLine($"Name : {item.Passenger.Name} & Paasport number : {item.Passenger.Passport} \n{item.Flight}");
                         }
                     }
                 }
