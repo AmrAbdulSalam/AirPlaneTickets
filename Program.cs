@@ -12,11 +12,10 @@ namespace AirPlanceTickets
     {
         public static async Task Main(string[] args)
         {
-
             Console.WriteLine("Enter the file path that have a .CSV file : ");
             string? path = Console.ReadLine();
             var flightRepository = new FlightRepository(path);
-            await flightRepository.ReadAsyncFile();
+            await flightRepository.ReadAsyncFile()
             var flightInfo = flightRepository.GetAllFlightsInfo();
             List<FlightDTO> filterdList = null;
             var newUser = true;
