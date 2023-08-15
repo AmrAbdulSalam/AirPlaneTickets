@@ -12,8 +12,6 @@ namespace AirPlanceTickets
     {
         public static async Task Main(string[] args)
         {
-            Console.WriteLine(FlightValidations.GetFlightValidations());
-
             Console.WriteLine("Enter the file path that have a .CSV file : ");
             string? path = Console.ReadLine();
             var flightRepository = new FlightRepository(path);
