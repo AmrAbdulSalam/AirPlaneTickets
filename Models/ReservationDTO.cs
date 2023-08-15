@@ -1,7 +1,7 @@
-﻿using AirportTickets.Flight;
-using AirportTickets.Passenger;
+﻿using AirportTickets.Models.Flight;
+using AirportTickets.Models.Passenger;
 
-namespace AirportTickets
+namespace AirportTickets.Models.Reservation
 {
     public class ReservationDTO
     {

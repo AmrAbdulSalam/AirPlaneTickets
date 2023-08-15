@@ -1,5 +1,5 @@
 ﻿using AirportTickets.FileInfo;
-using AirportTickets.Flight;
+using AirportTickets.Models.Flight;
 
 namespace AirportTickets.Repository
 {

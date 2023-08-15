@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using AirportTickets.FutureDate;
 
-namespace AirportTickets.Flight
+namespace AirportTickets.Models.Flight
 {
     public class FlightDTO : ILoggable
     {

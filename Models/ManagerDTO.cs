@@ -1,8 +1,9 @@
-﻿using AirportTickets.Booking;
-using AirportTickets.Flight;
-using static AirportTickets.Flight.FlightDTO;
+﻿using AirportTickets.Models.Booking;
+using AirportTickets.Models.Flight;
+using AirportTickets.Models.Reservation;
+using static AirportTickets.Models.Flight.FlightDTO;
 
-namespace AirportTickets
+namespace AirportTickets.Models.Manager
 {
     public class ManagerDTO
     {

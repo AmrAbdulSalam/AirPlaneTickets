@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using AirportTickets.Flight;
+using AirportTickets.Models.Flight;
 
 namespace AirportTickets.Validation
 {
@@ -14,7 +14,7 @@ namespace AirportTickets.Validation
             if (!valid)
             {
                 Console.WriteLine($"At line {lineNo}");
-                foreach (ValidationResult validationResult in validationResults)
+                foreach (var validationResult in validationResults)
                 {
                     Console.WriteLine("{0}", validationResult.ErrorMessage);
                 }

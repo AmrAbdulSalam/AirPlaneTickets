@@ -1,5 +1,5 @@
-﻿using AirportTickets.Flight;
-using AirportTickets.FutureDate;
+﻿using AirportTickets.FutureDate;
+using AirportTickets.Models.Flight;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;

@@ -1,5 +1,6 @@
-﻿using System;
-namespace AirportTickets.Booking
+﻿using AirportTickets.Models.Reservation;
+
+namespace AirportTickets.Models.Booking
 {
     public static class BookingDTO
     {

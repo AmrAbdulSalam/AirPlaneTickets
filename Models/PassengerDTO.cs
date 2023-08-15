@@ -1,7 +1,6 @@
-﻿using System;
-using AirportTickets.Flight;
+﻿using AirportTickets.Models.Flight;
 
-namespace AirportTickets.Passenger
+namespace AirportTickets.Models.Passenger
 {
     public class PassengerDTO : ILoggable
     {

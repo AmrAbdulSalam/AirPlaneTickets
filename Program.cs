@@ -1,10 +1,10 @@
-﻿using System;
-using AirportTickets.Flight;
-using AirportTickets.Repository;
-using AirportTickets.Passenger;
-using AirportTickets.Booking;
-using AirportTickets;
+﻿using AirportTickets.Repository;
 using AirportTickets.FlightValidation;
+using AirportTickets.Models.Flight;
+using AirportTickets.Models.Passenger;
+using AirportTickets.Models.Manager;
+using AirportTickets.Models.Reservation;
+using AirportTickets.Models.Booking;
 
 namespace AirPlanceTickets
 {
@@ -12,8 +12,6 @@ namespace AirPlanceTickets
     {
         public static async Task Main(string[] args)
         {
-            Console.WriteLine(FlightValidations.GetFlightValidations());
-
             Console.WriteLine("Enter the file path that have a .CSV file : ");
             string? path = Console.ReadLine();
             var flightRepository = new FlightRepository(path);

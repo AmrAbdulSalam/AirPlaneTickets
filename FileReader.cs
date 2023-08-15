@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using AirportTickets.Flight;
+using AirportTickets.Models.Flight;
 using AirportTickets.Validation;
-using static AirportTickets.Flight.FlightDTO;
+using static AirportTickets.Models.Flight.FlightDTO;
 
 namespace AirportTickets.FileInfo
 {
